@@ -25,6 +25,6 @@ jobs:
         run: npm ci
 
       - name: Build and Deploy
-        run: npx ng deploy
+        run: npx ng deploy --name="github-actions[bot]" --email="github-actions[bot]@users.noreply.github.com"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
