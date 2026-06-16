@@ -1,0 +1,32 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches:
+      - main # Ou o nome da sua branch principal
+
+permissions:
+  contents: write # Necessário para fazer push para a branch gh-pages
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout 🛎️
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build and Deploy
+        run: ng deploy
+        env:
+          # Se seu repositório for PÚBLICO, você precisará de um Personal Access Token
+          # Veja a nota de atenção abaixo
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
